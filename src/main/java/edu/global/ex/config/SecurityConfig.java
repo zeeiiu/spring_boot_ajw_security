@@ -19,10 +19,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{ // 무조건 �
 		http.csrf().disable();
 	   
 		 http.authorizeRequests()
-//	      .antMatchers("/user/**").hasAnyRole("USER") 
-//	      .antMatchers("/admin/**").hasAnyRole("ADMIN")
-	      .antMatchers("/**").hasAnyRole("ADMIN"); // 루트로 치고 들어오는 모든 폴도둘운 권한이  어드민인 것만 치고 들어와라. 이제 유저로 치고 가면 안될 것임. 
+	      .antMatchers("/user/**").hasAnyRole("USER")  // user로 치고오는 모든것들은 권한이 user인 사람만 들어와라.
+	      .antMatchers("/admin/**").hasAnyRole("ADMIN");
+//	      .antMatchers("/**").hasAnyRole("ADMIN"); // 루트로 치고 들어오는 모든 폴도둘운 권한이  어드민인 것만 치고 들어와라. 이제 유저로 치고 가면 안될 것임. 
+	      //.antMatchers("/**").permitAll(); // 권한 체크하지 말고 그냥 들어와라. 위에서 부터 체크함. 
 	      
+		 
 	      http.formLogin(); //스프링 시큐리티에 있는 기본 로그인 폼을 사용하겠다.
 	
 	
@@ -32,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{ // 무조건 �
 	   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 	       
 	      auth.inMemoryAuthentication() // 테스트 할 때 아래 두개와 같이 하지 실무에서는 하지않음.
-	           .withUser("user").password("{noop}user").roles("USER").and()
+	           .withUser("user").password("{noop}user").roles("USER").and() //roles이 권한 (roles means authority)
 	           .withUser("admin").password("{noop}admin").roles("ADMIN");
 	   
 	   }

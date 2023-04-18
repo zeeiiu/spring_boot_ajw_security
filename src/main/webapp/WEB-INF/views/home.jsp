@@ -9,6 +9,7 @@
  <body>
  
  
+ <img src =  "/img/KakaoTalk_20230418_105010549.gif">
 홈입니다.
 	
 </body>
