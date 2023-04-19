@@ -35,5 +35,17 @@ class UserMapperTest {
       userMapper.insertAuthorities(user);
       
    }
+   
+   @Test
+   void testInserAdminUser() {
+	   
+	   UserVO user = new UserVO();
+	   user.setUsername("admin3");
+	   user.setPassword(new BCryptPasswordEncoder().encode("admin3"));
+	   user.setEnabled(1);
+	   
+	   userMapper.insertUser(user);
+	   userMapper.insertAdminAuthorities(user);
+   }
 
 }
