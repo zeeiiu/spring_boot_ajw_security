@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
-public class CustomUserDtetailsService implements UserDetailsService {
+public class CustomUserDetailsService implements UserDetailsService {
 
    @Autowired
    private UserMapper userMapper;

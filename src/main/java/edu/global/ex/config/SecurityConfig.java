@@ -8,7 +8,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import edu.global.ex.security.CustomUserDtetailsService;
+import edu.global.ex.security.CustomUserDetailsService;
+
+
 
 @Configuration /* @Component + 의미(Configuration. 즉 설정할 수있는 파일) ,,
                IOC 컨테이너에 갖다 넣어라. IOC컨테이너에 객체들이 들어가고 IOC컨테이너가 관리하는 것이 기본 컨셉. */ 
@@ -16,7 +18,7 @@ import edu.global.ex.security.CustomUserDtetailsService;
 public class SecurityConfig extends WebSecurityConfigurerAdapter{ // 무조건 상속해야지 시큐리티를 작동 시키는 파일이 됨. 정해진 것. 
 	
 	@Autowired
-	private CustomUserDtetailsService customUserDetailsService;
+	private CustomUserDetailsService customUserDetailsService;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -32,7 +34,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{ // 무조건 �
 	  //  .antMatchers("/**").permitAll() // 권한 체크하지 말고 그냥 들어와라. 위에서 부터 체크함. 이거 주석 풀면 바로 위에 ';' 빼야함
 	      
 		 
-	      http.formLogin(); //스프링 시큐리티에 있는 기본 로그인 폼을 사용하겠다.
+	   //   http.formLogin(); //스프링 시큐리티에 있는 기본 로그인 폼을 사용하겠다. 주석 처리해도 디폴트로 나옴.
+		 http.formLogin()
+		 .loginPage("/login") // loginPage()는 말그대로 로그인할 때 페이지 url이고
+//		 .usernameParameter("id")
+//		 .passwordParameter("pw")
+		 
+		 .permitAll(); // 모든 유저가 로그인 화면은 볼 수 있게 한다. 
 	
 	
 	}
