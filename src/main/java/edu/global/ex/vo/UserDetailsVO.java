@@ -43,7 +43,14 @@ public class UserDetailsVO implements UserDetails { // 커스터마이징을 위
 
 	/////////////////////////////
 	
+	   
+		public String getCart() {
+			// TODO Auto-generated method stub
+			return "이것은 장바구니다.";
 
+		}
+	   
+	   
 		@Override
 		public Collection<? extends GrantedAuthority> getAuthorities() {
 			// TODO Auto-generated method stub
