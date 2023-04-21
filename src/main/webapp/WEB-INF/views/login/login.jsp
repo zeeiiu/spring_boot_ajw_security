@@ -28,7 +28,7 @@
         <label for="password">비밀번호</label>
         <input type="password" id="password" name="password"/> <!-- 'password'로 맞춰줘야함. -->
     </p>
-    <%-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> --%>
+  <%--  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />   --%>
     <button type="submit" class="btn">로그인</button>
 </form:form>
 

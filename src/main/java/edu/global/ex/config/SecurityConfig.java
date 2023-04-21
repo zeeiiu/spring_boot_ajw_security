@@ -1,14 +1,17 @@
 package edu.global.ex.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import edu.global.ex.security.CustomUserDetailsService;
+import edu.global.ex.vo.UserVO;
 
 @Configuration /*
 				 * @Component + 의미(Configuration. 즉 설정할 수있는 파일) ,, IOC 컨테이너에 갖다 넣어라. IOC컨테이너에
@@ -20,12 +23,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { // 무조건 
 	@Autowired
 	private CustomUserDetailsService customUserDetailsService;
 
+	@Bean // IOC 컨테이너안에 객체생성해라. 
+	   public PasswordEncoder  bCryptPasswordEncoder() {
+	       return new BCryptPasswordEncoder();
+	    }
+//
+//	@Bean // IOC 컨테이너안에 객체생성해라. 
+//	public UserVO userVO2() {
+//		UserVO vo = new UserVO();
+//		vo.setPassword("메롱");
+//		vo.setUsername("메롱");
+//		return vo;
+//	}
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// 우선 CSRF 설정을 해제한다.
 		// 초기 개발시만 해주는게 좋다.
 
-		http.csrf().disable();
+//		http.csrf().disable(); 주석처리를 하면 csrf를 쓰겠다.  
 
 		http.authorizeRequests().antMatchers("/user/**").hasAnyRole("USER") // user로 치고오는 모든것들은 권한이 user인 사람만 들어와라.
 				.antMatchers("/admin/**").hasAnyRole("ADMIN");
