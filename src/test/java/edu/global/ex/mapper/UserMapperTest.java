@@ -1,90 +1,49 @@
 package edu.global.ex.mapper;
 
-
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import edu.global.ex.vo.UserVO;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@SpringBootTest
+@SpringBootTest // 모든 빈들을 스캔()하고 애플리케이션 컨텍스트를 생성하여 테스트를 실행한다.
 class UserMapperTest {
 
    @Autowired
    private UserMapper userMapper;
    
-//   @Test
-//   void testInserUser() {
-      
-//      @Insert("insert into users(username,password,enabled) values(#{username},#{password},#{enabled})")
-//      public int insertUser(UserVO userVO);
-//
-//      @Insert("insert into AUTHORITIES (username,AUTHORITY) values(#{username},'ROLE_USER')")
-//      public void insertAuthorities(UserVO UserVO);
-      
-//      UserVO user = new UserVO();
-//      user.setUsername("kim2");
-//      user.setPassword(new BCryptPasswordEncoder().encode("kim2"));
-//      user.setEnabled(1);
-//            
-//      userMapper.insertUser(user);
-//      userMapper.insertAuthorities(user);
-//      
-//   }
-//   
-//   @Test
-//   void testInserAdminUser() {
-//	   
-//	   UserVO user = new UserVO();
-//	   user.setUsername("admin3");
-//	   user.setPassword(new BCryptPasswordEncoder().encode("admin3"));
-//	   user.setEnabled(1);
-//	   
-//	   userMapper.insertUser(user);
-//	   userMapper.insertAdminAuthorities(user);
-//   }
-//  
-   
-   
-   
-   
    @Autowired
    private PasswordEncoder passwordEncoder;
    
-   @Autowired
-   private UserVO userVO;
+   
+   @Disabled // 이 테스트는 무시해라.
+   @Test
+   void testInserUser() {
+      
+      UserVO user = new UserVO();
+      user.setUsername("kim5");
+      user.setPassword(passwordEncoder.encode("1234"));
+      user.setEnabled(1);
+
+      userMapper.insertUser(user);
+   }
+   
    
    @Test
-   void testPassWordEncoder() {
+   void testInserAdmin() {
       
-      String plainPW = "1234";
-      String encodedPW = passwordEncoder.encode(plainPW);
-      
-      System.out.println(encodedPW);
-      
-      userVO.setPassword(plainPW + ":" + encodedPW);
-      
-      System.out.println(passwordEncoder.matches(plainPW, encodedPW));
-      System.out.println(userVO);
+      UserVO user = new UserVO();
+      user.setUsername("admin5");
+      user.setPassword(passwordEncoder.encode("1234"));
+      user.setEnabled(1);
 
-	   
-	   // ==========================
-	   
-	   //assertNotEquals(plainPW, encodedPW);  //  assertNotEquals은 JUnit 에서 제공하는 함수
-	  // assertEquals(plainPW, encodedPW);
-	   
-	   
-       
-
+      userMapper.insertUser(user);
+      userMapper.insertAdminAuthorities(user);
    }
+ 
 
 }
